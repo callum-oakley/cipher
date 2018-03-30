@@ -26,3 +26,11 @@ executable cipher
   main-is: Main.hs
   default-language: Haskell2010
   build-depends: base >= 4.7 && < 5, cipher
+
+test-suite spec
+  hs-source-dirs: spec
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  ghc-options: -Wall
+  build-depends: base >= 4.7 && < 5, cipher, hspec, QuickCheck
+  default-language: Haskell2010

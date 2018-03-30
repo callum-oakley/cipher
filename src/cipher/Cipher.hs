@@ -6,19 +6,14 @@ import Data.Char (ord, chr)
 
 type Key = String
 
-newtype CharInt = CharInt { unCharInt :: Int }
-  deriving (Eq, Ord, Num, Enum, Real, Integral)
+minOrd :: Int
+minOrd = ord minBound
 
-instance Bounded CharInt
-  where
-    minBound = CharInt $ ord (minBound :: Char)
-    maxBound = CharInt $ ord (maxBound :: Char)
-
-wrapToBounds :: (Bounded a, Integral a) => a -> a
-wrapToBounds n = mod (n - minBound) (maxBound + 1 - minBound) + minBound
+maxOrd :: Int
+maxOrd = ord maxBound
 
 charFromInt :: Int -> Char
-charFromInt = chr . unCharInt . wrapToBounds . CharInt
+charFromInt n = chr $ mod (n - minOrd) (maxOrd + 1 - minOrd) + minOrd
 
 shift :: Int -> Char -> Char
 shift n c = charFromInt $ ord c + n
@@ -30,7 +25,7 @@ unCaesar :: Int -> String -> String
 unCaesar = caesar . negate
 
 offsets :: Key -> [Int]
-offsets = map (\c -> ord c - ord minBound) . concat . repeat . zeroIfEmpty
+offsets = map (\c -> ord c - minOrd) . concat . repeat . zeroIfEmpty
   where
     zeroIfEmpty x = if x == "" then [minBound] else x
 
