@@ -6,7 +6,7 @@ import Data.List (find)
 import Cipher (vigenere, unVigenere)
 
 decodeFlag :: [String] -> Bool
-decodeFlag = any (flip elem ["-d", "--decode"])
+decodeFlag = any (`elem` ["-d", "--decode"])
 
 password :: [String] -> Maybe String
 password = find ((/= '-') . head)
