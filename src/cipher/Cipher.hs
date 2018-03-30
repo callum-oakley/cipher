@@ -1,6 +1,4 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-
-module Cipher where
+module Cipher (caesar, unCaesar, vigenere, unVigenere) where
 
 import Data.Char (ord, chr)
 
@@ -24,10 +22,11 @@ caesar = map . shift
 unCaesar :: Int -> String -> String
 unCaesar = caesar . negate
 
+emptyDef :: Eq a => [a] -> [a] -> [a]
+emptyDef def x = if x == [] then def else x
+
 offsets :: Key -> [Int]
-offsets = map (\c -> ord c - minOrd) . concat . repeat . zeroIfEmpty
-  where
-    zeroIfEmpty x = if x == "" then [minBound] else x
+offsets = map (\c -> ord c - minOrd) . concat . repeat . emptyDef [minBound]
 
 vigenere :: Key -> String -> String
 vigenere key = zipWith shift (offsets key)
