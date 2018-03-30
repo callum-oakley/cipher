@@ -15,12 +15,14 @@ extra-source-files: README.md
 
 library
   hs-source-dirs: src/cipher
+  ghc-options: -Wall
   exposed-modules: Cipher
-  build-depends: base >= 4.7 && < 5
+  build-depends: base >= 4.7 && < 5, hspec, QuickCheck
   default-language: Haskell2010
 
 executable cipher
   hs-source-dirs: src/cmd
+  ghc-options: -Wall
   main-is: Main.hs
   default-language: Haskell2010
   build-depends: base >= 4.7 && < 5, cipher

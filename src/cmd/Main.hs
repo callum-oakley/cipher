@@ -20,6 +20,6 @@ main = do
       putStrLn $ "Usage: " ++ progName ++ " [-d|--decode] PASSWORD"
     Just pw ->
       if decodeFlag args then
-        interact $ unVigenere 'a' pw
+        interact $ unVigenere pw
       else
-        interact $ vigenere 'a' pw
+        interact $ vigenere pw
